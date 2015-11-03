@@ -1,4 +1,5 @@
 import random
+import math
 import numpy
 
 __author__ = 'ay27'
@@ -41,14 +42,13 @@ class MyTestCase(unittest.TestCase):
         self.M = len(self.R[0])
 
     def test_1(self):
-        print(self.R)
-        # test_r = random_mask(self.R, self.N, self.M)
-        # k = 20
-        # P = numpy.random.rand(self.N, k)
-        # Q = numpy.random.rand(self.M, k)
-        # nP, nQ = NMF.nmf_gd(self.R, P, Q, k)
-        # nR = numpy.dot(nP, nQ.T)
-        # print(calc_mat(self.R, nR))
+        test_r = random_mask(self.R, self.N, self.M)
+        k = 6
+        P = numpy.random.rand(self.N, k)
+        Q = numpy.random.rand(self.M, k)
+        nP, nQ = NMF.nmf_gd(test_r, P, Q, k)
+        nR = numpy.dot(nP, nQ.T)
+        print(calc_mat(self.R, nR))
 
         # read_from_csv('/Users/ay27/PycharmProjects/NMF/dataset/medical/medical-test.csv')
         # read_from_csv('/Users/ay27/PycharmProjects/NMF/dataset/emotions/emotions-train.csv')
@@ -96,7 +96,7 @@ def calc_mat(X, Y):
     for i in range(len(X)):
         for j in range(len(X[i])):
             e += pow(X[i][j] - Y[i][j], 2)
-    return e
+    return math.sqrt(e)
 
 
 def read_from_csv(filename):
