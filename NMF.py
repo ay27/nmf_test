@@ -1,9 +1,10 @@
 import numpy
 
 
-def nmf_gd(R, P, Q, K, steps=50000, alpha=0.0002, beta=0.02):
+def nmf_gd(R, P, Q, K, steps=20, alpha=0.0002, beta=0.02):
     Q = Q.T
     for step in range(steps):
+        print('step = %d' %step)
         for i in range(len(R)):
             for j in range(len(R[i])):
                 if R[i][j] > 0:
