@@ -7,17 +7,37 @@ __author__ = 'ay27'
 import unittest
 import NMF
 import nmf1
-from sklearn import decomposition
 import csv
 
 
 def random_mask(R, n, m, count=20):
     ret_r = R.copy()
     for i in range(count):
-        rand_n = random.randint(0, n-1)
-        rand_m = random.randint(0, m-1)
+        rand_n = random.randint(0, n - 1)
+        rand_m = random.randint(0, m - 1)
         ret_r[rand_n][rand_m] = 0.0
     return ret_r
+
+
+def calc_mat(X, Y):
+    e = 0
+    for i in range(len(X)):
+        for j in range(len(X[i])):
+            e += pow(X[i][j] - Y[i][j], 2)
+    return math.sqrt(e)
+
+
+def read_from_csv(filename):
+    R = []
+    with open(filename) as f:
+        f_csv = csv.reader(f)
+        headers = next(f_csv)
+        for row in f_csv:
+            tmp = []
+            for i in range(72):
+                tmp.append(float(row[i]))
+            R.append(tmp)
+    return R
 
 
 class MyTestCase(unittest.TestCase):
@@ -101,26 +121,6 @@ class MyTestCase(unittest.TestCase):
                     data.append(float(line.split()[2]))
         print(data)
 
+
 if __name__ == '__main__':
     unittest.main()
-
-
-def calc_mat(X, Y):
-    e = 0
-    for i in range(len(X)):
-        for j in range(len(X[i])):
-            e += pow(X[i][j] - Y[i][j], 2)
-    return math.sqrt(e)
-
-
-def read_from_csv(filename):
-    R = []
-    with open(filename) as f:
-        f_csv = csv.reader(f)
-        headers = next(f_csv)
-        for row in f_csv:
-            tmp = []
-            for i in range(72):
-                tmp.append(float(row[i]))
-            R.append(tmp)
-    return R
