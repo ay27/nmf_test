@@ -46,9 +46,16 @@ class MyTestCase(unittest.TestCase):
         k = 6
         P = numpy.random.rand(self.N, k)
         Q = numpy.random.rand(self.M, k)
-        nP, nQ = NMF.nmf_gd(test_r, P, Q, k)
+        nP, nQ = NMF.nmf_gd(test_r, P, Q, k, steps=2000)
         nR = numpy.dot(nP, nQ.T)
-        print(calc_mat(self.R, nR))
+        print('R:')
+        print(self.R)
+        print('result_R:')
+        print(nR)
+        print('P:')
+        print(nP)
+        print('Q:')
+        print(nQ)
 
         # read_from_csv('/Users/ay27/PycharmProjects/NMF/dataset/medical/medical-test.csv')
         # read_from_csv('/Users/ay27/PycharmProjects/NMF/dataset/emotions/emotions-train.csv')
@@ -86,6 +93,13 @@ class MyTestCase(unittest.TestCase):
         #     nmf = model.fit(numpy.array(self.R))
         #     print(nmf.components_)
 
+    def test_2(self):
+        data = []
+        with open('out.txt') as f:
+            for line in f.readlines():
+                if line.startswith('e = '):
+                    data.append(float(line.split()[2]))
+        print(data)
 
 if __name__ == '__main__':
     unittest.main()
