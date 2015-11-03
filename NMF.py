@@ -1,10 +1,10 @@
 import numpy
 
 
-def nmf_gd(R, P, Q, K, steps=1000, alpha=0.0002, beta=0.02):
+def nmf_gd(R, P, Q, K, fr, steps=1000, alpha=0.0002, beta=0.02):
     Q = Q.T
     for step in range(steps):
-        print('step = %d' %step)
+        fr.write('step = %d\n' %step)
         for i in range(len(R)):
             for j in range(len(R[i])):
                 if R[i][j] > 0:
@@ -20,7 +20,7 @@ def nmf_gd(R, P, Q, K, steps=1000, alpha=0.0002, beta=0.02):
                     e += pow(R[i][j] - numpy.dot(P[i, :], Q[:, j]), 2)
                     # for k in range(K):
                     #     e += (beta / 2) * (pow(P[i][k], 2) + pow(Q[k][j], 2))
-        print('e = %f' % e)
+        fr.write('e = %f\n' % e)
     return P, Q.T
 
 
