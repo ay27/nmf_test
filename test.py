@@ -63,13 +63,13 @@ class MyTestCase(unittest.TestCase):
 
     def test_1(self):
         test_r = random_mask(self.R, self.N, self.M)
-        k = 6
+        k = 10
         P = numpy.random.rand(self.N, k)
         Q = numpy.random.rand(self.M, k)
 
         fr = open('log', mode='w')
 
-        nP, nQ = NMF.nmf_gd(test_r, P, Q, k, fr, steps=2000)
+        nP, nQ = NMF.nmf_gd(test_r, P, Q, k, fr, steps=10000)
         nR = numpy.dot(nP, nQ.T)
         fr.write('\nR:\n')
         fr.write(self.R)
